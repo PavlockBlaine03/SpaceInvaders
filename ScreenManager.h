@@ -4,7 +4,7 @@
 #include "GameScreen.h"
 #include "ScreenManagerRemoteControl.h"
 #include "SelectScreen.h"
-//#include "LevelManager.h"
+#include "LevelManager.h"
 #include "BitmapStore.h"
 #include <iostream>
 
@@ -14,6 +14,7 @@ using namespace sf;
 class ScreenManager : public ScreenManagerRemoteControl
 {
 	map<string, unique_ptr<Screen>> m_Screens;
+	LevelManager m_LevelManager;
 
 protected:
 	string m_CurrentScreen = "Select";
@@ -36,16 +37,16 @@ public:
 	}
 	void ScreenManagerRemoteControl::loadLevelInPlayMode(string screenToLoad)
 	{
-		//m_LevelManager.getGameObjects().clear();
-		//m_LevelManager.loadGameObjectsForPlayMode(screenToLoad);
+		m_LevelManager.getGameObjects().clear();
+		m_LevelManager.loadGameObjectsForPlayMode(screenToLoad);
 		SwitchScreens("Game");
 	}
-	/*vector<GameObject>& ScreenManagerRemote::getGameObjects()
+	vector<GameObject>& ScreenManagerRemoteControl::getGameObjects()
 	{
 		return m_LevelManager.getGameObjects();
 	}
 	GameObjectSharer& shareGameObjectShare()
 	{
-		return m_LevelManager();
-	}*/
+		return m_LevelManager;
+	}
 };
